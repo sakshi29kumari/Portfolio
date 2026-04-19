@@ -1,0 +1,216 @@
+.footer-section {
+  position: relative;
+  padding: 60px 24px 0;
+  background-color: #000;
+  background-image: 
+    radial-gradient(circle at 10% 10%, rgba(166, 77, 121, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(109, 74, 255, 0.1) 0%, transparent 40%);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+.footer-content-grid {
+  width: 100%;
+  max-width: 1400px;
+  padding: 40px 0 80px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 80px;
+  z-index: 10;
+}
+
+@media (max-width: 1024px) {
+  .footer-content-grid {
+    grid-template-columns: 1fr;
+    padding: 40px;
+    gap: 60px;
+  }
+}
+
+/* Identity Zone */
+.branding-zone {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 40px;
+}
+
+.branding-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  font-weight: 950;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.branding-name:hover {
+  color: #fff;
+  -webkit-text-stroke: 1px transparent;
+}
+
+.tagline-container {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.portfolio-tag {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  color: #A64D79;
+}
+
+.desc-tag {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Links Zone */
+.links-zone {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  justify-items: end;
+}
+
+.link-group {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.link-title {
+  font-size: 13px;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: #A64D79;
+}
+
+.link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.footer-link:hover {
+  color: #fff;
+  transform: translateX(5px);
+}
+
+/* Inquiries Zone */
+.inquiries-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  justify-items: end;
+  align-items: flex-end;
+}
+
+.email-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 24px 32px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.email-card span:first-child {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #A64D79;
+  letter-spacing: 0.2em;
+}
+
+.email-card span:last-child {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.email-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: #A64D79;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(166, 77, 121, 0.2);
+}
+
+.status-box p {
+  font-size: 12px;
+  line-height: 1.6;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Decorative Strip */
+.decorative-strip {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1px;
+}
+
+.shape-item {
+  flex: 1;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+
+
+.shape-svg-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #A64D79;
+  --color-secondary: #6A1E55;
+  --color-accent: #3B1C32;
+  --color-dark: #1A1A1D;
+  --color-light: #eae0d5;
+  --color-theme-black: #1A1A1D;
+  --color-theme-dark-purple: #3B1C32;
+  --color-theme-medium-purple: #6A1E55;
+  --color-theme-pink: #A64D79;
+
+  /* Reference Image Palette */
+  --color-cream: #FDF9EF;
+  --color-sage: #3E5144;
+  --color-orange-brand: #FBB03B;
+  --color-dark-green: #1E2824;
+
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Outfit", sans-serif;
+  --font-syne: "Syne", sans-serif;
+
+  --animate-gradient: gradient 8s linear infinite;
+
+  @keyframes gradient {
+
+    0%,
+    100% {
+      background-size: 200% 200%;
+      background-position: left center;
+    }
+
+    50% {
+      background-size: 200% 200%;
+      background-position: right center;
+    }
+  }
+}
+
+@layer base {
+  body {
+    @apply antialiased text-[#eae0d5] bg-[#1A1A1D] transition-colors duration-300;
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  .dark body {
+    @apply text-[#eae0d5] bg-[#1A1A1D];
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply backdrop-blur-md bg-white/70 dark:bg-slate-900/70 border border-white/20 dark:border-slate-800/20 shadow-xl;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-lg bg-white/40 dark:bg-slate-800/40 border border-white/30 dark:border-slate-700/30 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300;
+  }
+
+  .nav-link {
+    @apply relative font-medium transition-colors hover:text-blue-500;
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 bg-blue-600 text-white rounded-full font-semibold shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-full font-semibold hover:bg-blue-600 hover:text-white dark:hover:text-white transition-all duration-300 flex items-center justify-center gap-2;
+  }
+
+  .section-padding {
+    @apply py-20 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-5xl font-extrabold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-emerald-500;
+  }
+
+  .vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+}
+
+@layer utilities {
+
+  /* Custom Gradients */
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#A64D79] via-[#6A1E55] to-[#3B1C32];
+  }
+
+  .gradient-bg {
+    @apply bg-gradient-to-br from-[#A64D79]/10 via-transparent to-[#3B1C32]/10;
+  }
+}
