@@ -10,8 +10,6 @@ import PrintingPres2 from '../assets/PrintingPres2.png';
 import printing from '../assets/projects/printing.png';
 import learning from '../assets/projects/learning.png';
 import ai_career from '../assets/projects/ai_career.png';
-
-
 import p1 from '../assets/projects/p1.png';
 import p2 from '../assets/projects/p2.png';
 import p3 from '../assets/projects/p3.png';
@@ -66,6 +64,7 @@ const ProjectCard = ({ project, index, range, targetScale }) => {
         className="relative h-[90vh] md:h-[85vh] w-full max-w-[1400px] rounded-[2rem] md:rounded-[3rem] bg-[#050505] border-2 border-white/20 shadow-2xl overflow-hidden flex flex-col p-6 md:p-12 group transition-all duration-700 hover:border-white"
         style={{
           scale,
+
           top: `calc(-5vh + ${index * 40}px)`,
           willChange: "transform",
         }}
