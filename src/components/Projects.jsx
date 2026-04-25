@@ -2,12 +2,10 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 // Asset Imports
-import rentpe from '../assets/projects/rentpe.png';
 import RentPe1 from '../assets/RentPe1.png';
 import RentPe2 from '../assets/RentPe2.png';
 import PrintingPress1 from '../assets/PrintingPress1.png';
 import PrintingPres2 from '../assets/PrintingPres2.png';
-import printing from '../assets/projects/printing.png';
 import learning from '../assets/projects/learning.png';
 import ai_career from '../assets/projects/ai_career.png';
 import p1 from '../assets/projects/p1.png';
