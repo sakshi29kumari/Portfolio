@@ -15,7 +15,8 @@ import ScrollProgress from './components/ScrollProgress';
 function App() {
   return (
     <ThemeProvider>
-      <div className="bg-[#0A0A0B]">
+      <div className="bg-[#0A0A0B] relative">
+        <Navbar />
         <ScrollProgress />
 
         <div id="hero" className="snap-start snap-always">

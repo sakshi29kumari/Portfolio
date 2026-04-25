@@ -70,6 +70,28 @@ const TableOfContents = () => {
     offset: ['start start', 'end start'],
   });
 
+  // Hides the global navbar when this section is active
+  React.useEffect(() => {
+    const navbar = document.querySelector('nav');
+    if (!navbar) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          navbar.style.opacity = '0';
+          navbar.style.pointerEvents = 'none';
+        } else {
+          navbar.style.opacity = '1';
+          navbar.style.pointerEvents = 'auto';
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
 
 
   const opacity = useTransform(scrollYProgress, [0.8, 1], [1, 0]);
