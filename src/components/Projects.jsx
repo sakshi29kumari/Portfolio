@@ -11,14 +11,7 @@ import printing from '../assets/projects/printing.png';
 import learning from '../assets/projects/learning.png';
 import ai_career from '../assets/projects/ai_career.png';
 
-// Redesigned Assets
-import rentpe_mockup_1 from '../../../../.gemini/antigravity/brain/e064f642-2f22-43d2-a7be-e221f5c14c75/rentpe_mockup_1_1776358045072.png';
-import rentpe_detail from '../../../../.gemini/antigravity/brain/e064f642-2f22-43d2-a7be-e221f5c14c75/rentpe_detail_view_1776358253732.png';
-import print_hero from '../../../../.gemini/antigravity/brain/e064f642-2f22-43d2-a7be-e221f5c14c75/printing_press_hero_1776358139116.png';
-import print_dash from '../../../../.gemini/antigravity/brain/e064f642-2f22-43d2-a7be-e221f5c14c75/printing_press_dashboard_1776358321340.png';
-import print_mech from '../../../../.gemini/antigravity/brain/e064f642-2f22-43d2-a7be-e221f5c14c75/printing_press_machinery_detail_1776358378166.png';
-import learn_hero from '../../../../.gemini/antigravity/brain/e064f642-2f22-43d2-a7be-e221f5c14c75/gamified_learning_hero_1776358463549.png';
-import learn_dash from '../../../../.gemini/antigravity/brain/e064f642-2f22-43d2-a7be-e221f5c14c75/gamified_learning_dashboard_1776358596222.png';
+
 import p1 from '../assets/projects/p1.png';
 import p2 from '../assets/projects/p2.png';
 import p3 from '../assets/projects/p3.png';
@@ -44,7 +37,7 @@ const PROJECTS = [
     number: '03',
     client: 'EdTech',
     title: 'Gamified Learning Platform',
-    images: [learn_hero, learn_dash, learning],
+    images: [learning, learning, learning],
     glow: 'rgba(21, 101, 192, 0.9)', // Blue Glow
     tags: ['REACT', 'FRAMER MOTION', 'GAMIFICATION'],
   },
