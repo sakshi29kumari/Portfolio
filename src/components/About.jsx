@@ -110,7 +110,7 @@ const About = () => {
       }}
       className="relative about-noise overflow-hidden cursor-none"
       style={{
-        minHeight: '100vh',
+        minHeight: window.innerWidth > 768 ? '100vh' : 'auto',
         background: 'linear-gradient(145deg, #0D0D0D 0%, #111118 40%, #130B10 100%)',
       }}
     >
@@ -169,10 +169,10 @@ const About = () => {
 
       {/* ─── Main 2-column grid ─── */}
       <div
-        className="relative z-10 max-w-[1400px] mx-auto px-8 md:px-16 lg:px-24 flex flex-col lg:flex-row items-center min-h-screen gap-12 lg:gap-0 py-12 md:py-16"
+        className="relative z-10 max-w-[1400px] mx-auto px-8 md:px-16 lg:px-24 flex flex-col lg:flex-row items-center min-h-0 lg:min-h-screen gap-6 lg:gap-0 py-8 md:py-16"
       >
 
-        <div className="w-full lg:w-[60%] flex flex-col justify-center py-20 lg:py-0 lg:pr-16">
+        <div className="w-full lg:w-[60%] flex flex-col justify-center py-8 lg:py-0 lg:pr-16">
 
           {/* Eyebrow tag */}
           <motion.div
@@ -258,7 +258,7 @@ const About = () => {
         {/* ══════════════════════════════
             RIGHT – Image Panel (40%)
         ══════════════════════════════ */}
-        <div className="w-full lg:w-[40%] flex items-center justify-center relative py-12 lg:py-0">
+        <div className="hidden lg:flex w-full lg:w-[40%] items-center justify-center relative py-12 lg:py-0">
 
           {/* Pink / purple decorative circle */}
           <div
@@ -304,9 +304,9 @@ const About = () => {
             onMouseLeave={() => setCursorVariant('default')}
           >
             <div className="relative" style={{ width: 'clamp(450px, 50vw, 750px)', height: 'clamp(650px, 80vh, 950px)' }}>
-              
+
               {/* The "Japan/Editorial" Bold Circle */}
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
@@ -323,12 +323,14 @@ const About = () => {
 
               {/* The Profile Image - Assuming cutout or using object-contain to overlap */}
               <div className="absolute inset-x-0 bottom-0 h-full flex items-end justify-center">
-                 <img
+                <img
                   src={meImage}
                   alt="Sakshi Kumari"
                   className="w-auto h-[110%] object-contain select-none pointer-events-none drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
                   style={{
                     filter: 'contrast(1.05) brightness(1.05)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
+                    maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)'
                   }}
                 />
               </div>

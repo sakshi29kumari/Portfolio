@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin } from 'lucide-react';
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   const navLinks = [
@@ -15,11 +15,12 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-8 right-8 md:right-12 z-[100]">
+    <nav className="fixed top-4 right-4 md:top-8 md:right-12 z-[2147483647]">
       <div
-        className="flex flex-row-reverse items-center gap-4 p-2 rounded-full transition-all duration-500 bg-[#1A1A1D]/40 backdrop-blur-xl border border-[#A64D79]/10 hover:border-[#A64D79]/30"
+        className="flex flex-col md:flex-row-reverse items-end md:items-center gap-4 p-2 rounded-[2rem] md:rounded-full transition-all duration-500 bg-[#1A1A1D]/40 backdrop-blur-xl border border-[#A64D79]/10 hover:border-[#A64D79]/30"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        onClick={() => setIsOpen(!isOpen)}
       >
         {/* The Menu Trigger Button */}
         <motion.button
@@ -27,24 +28,23 @@ const Navbar = () => {
         >
           Menu <span className="opacity-30">|</span>
           <motion.span
-            animate={{ rotate: isHovered ? 90 : 0 }}
+            animate={{ rotate: (isHovered || isOpen) ? 90 : 0 }}
             className="inline-block"
           >
             —
           </motion.span>
         </motion.button>
 
-        {/* The Inline Links */}
         <AnimatePresence>
-          {isHovered && (
+          {(isHovered || isOpen) && (
             <motion.div
-              initial={{ opacity: 0, x: 20, width: 0 }}
-              animate={{ opacity: 1, x: 0, width: 'auto' }}
-              exit={{ opacity: 0, x: 20, width: 0 }}
+              initial={{ opacity: 0, y: 10, height: 0 }}
+              animate={{ opacity: 1, y: 0, height: 'auto' }}
+              exit={{ opacity: 0, y: 10, height: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="flex items-center gap-6 pr-4 overflow-hidden"
+              className="flex items-center md:items-center gap-4 md:gap-6 px-4 py-2 md:py-0 overflow-hidden"
             >
-              <ul className="flex items-center gap-6">
+              <ul className="flex flex-col md:flex-row items-end md:items-center gap-4 md:gap-6">
                 {navLinks.map((link, idx) => (
                   <motion.li
                     key={link.name}
@@ -54,25 +54,18 @@ const Navbar = () => {
                   >
                     <a
                       href={link.href}
-                      className="text-[10px] uppercase tracking-widest font-bold text-[#F3E5F5]/60 hover:text-[#A64D79] transition-colors whitespace-nowrap"
-                      onClick={() => setIsHovered(false)}
+                      className="text-[10px] uppercase tracking-widest font-bold text-[#F3E5F5]/60 hover:text-[#A64D79] transition-colors whitespace-nowrap block"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsOpen(false);
+                        setIsHovered(false);
+                      }}
                     >
                       {link.name}
                     </a>
                   </motion.li>
                 ))}
               </ul>
-
-              <div className="h-4 w-[1px] bg-[#A64D79]/20" />
-
-              <div className="flex items-center gap-4">
-                <a href="#" className="text-[#F3E5F5]/40 hover:text-[#A64D79] transition-colors">
-                  <Github size={16} />
-                </a>
-                <a href="#" className="text-[#F3E5F5]/40 hover:text-[#A64D79] transition-colors">
-                  <Linkedin size={16} />
-                </a>
-              </div>
             </motion.div>
           )}
         </AnimatePresence>

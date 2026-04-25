@@ -96,8 +96,8 @@ const Footer = () => {
               <h4 className="link-title">Connect</h4>
               <ul className="link-list">
                  {[
-                   { name: 'GitHub', icon: Github, url: '#' },
-                   { name: 'LinkedIn', icon: Linkedin, url: '#' }
+                   { name: 'GitHub', icon: Github, url: 'https://github.com/sakshi29kumari' },
+                   { name: 'LinkedIn', icon: Linkedin, url: 'https://www.linkedin.com/in/sakshi-kumari04/' }
                  ].map((s) => (
                     <motion.li 
                       key={s.name}
@@ -126,9 +126,9 @@ const Footer = () => {
         >
            <h4 className="link-title">Inquiries</h4>
            <div className="contact-list">
-             <a href="mailto:sakshikumari@example.com" className="email-card">
+             <a href="mailto:sakshi04292004@gmail.com" className="email-card">
                 <span>Email</span>
-                <span>sakshikumari@example.com</span>
+                <span>sakshi04292004@gmail.com</span>
              </a>
            </div>
         </motion.div>

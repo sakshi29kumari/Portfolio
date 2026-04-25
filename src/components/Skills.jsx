@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { 
+import {
   SiJavascript, SiC, SiHtml5, SiNodedotjs, SiTailwindcss,
   SiMysql, SiGit, SiVercel, SiPostman, SiReact,
   SiSpringboot, SiGithub, SiPython, SiTypescript, SiDocker, SiMongodb
@@ -19,10 +19,10 @@ const ORIGINAL_SKILLS = [
   { name: "Spring Boot", Icon: SiSpringboot, color: "#6DB33F" },
   { name: "MySQL", Icon: SiMysql, color: "#4479A1" },
   { name: "Git", Icon: SiGit, color: "#F05032" },
-  { name: "GitHub", Icon: SiGithub, color: "#FFFFFF" }, 
+  { name: "GitHub", Icon: SiGithub, color: "#FFFFFF" },
   { name: "VS Code", Icon: VscVscode, color: "#007ACC" },
   { name: "Postman", Icon: SiPostman, color: "#FF6C37" },
-  { name: "Vercel", Icon: SiVercel, color: "#FFFFFF" }, 
+  { name: "Vercel", Icon: SiVercel, color: "#FFFFFF" },
   { name: "C", Icon: SiC, color: "#A8B9CC" },
   { name: "TypeScript", Icon: SiTypescript, color: "#3178C6" },
   { name: "Python", Icon: SiPython, color: "#3776AB" },
@@ -32,21 +32,21 @@ const BackgroundGrid = () => (
   <div className="absolute inset-0 pointer-events-none overflow-hidden">
     {/* Noise Texture */}
     <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
-    
+
     {/* Animated Breathing Aura - Intensified */}
-    <motion.div 
-      animate={{ 
+    <motion.div
+      animate={{
         scale: [1, 1.3, 1],
         opacity: [0.2, 0.4, 0.2]
       }}
-      transition={{ 
+      transition={{
         duration: 6,
         repeat: Infinity,
         ease: "easeInOut"
       }}
       className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(166,77,121,1)_0%,transparent_70%)]"
     />
-    
+
     <svg className="absolute w-full h-full opacity-40" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
@@ -77,38 +77,38 @@ const TechCard = ({ skill, index }) => (
     className="relative group w-20 h-20 md:w-28 md:h-28 m-2"
   >
     {/* Outer Glow System */}
-    <div className="absolute inset-0 bg-white/[0.03] backdrop-blur-md rounded-2xl border border-white/[0.08] transition-all duration-500 group-hover:bg-white/[0.05] group-hover:border-[#A64D79]/40 group-hover:shadow-[0_0_40px_rgba(166,77,121,0.15)]" />
-    
+    <div className="absolute inset-0 bg-white/[0.08] backdrop-blur-xl rounded-2xl border border-white/10 transition-all duration-500 group-hover:bg-white/[0.12] group-hover:border-[#A64D79]/50 group-hover:shadow-[0_0_50px_rgba(166,77,121,0.2)]" />
+
     {/* Inner Bevel Highight */}
     <div className="absolute inset-[1px] rounded-[0.95rem] border border-white/10 opacity-40 pointer-events-none" />
-    
+
     {/* Background Aura */}
-    <div 
+    <div
       className="absolute inset-4 opacity-0 group-hover:opacity-10 transition-opacity duration-700 blur-2xl rounded-full"
       style={{ backgroundColor: skill.color }}
     />
 
     <div className="relative h-full flex flex-col items-center justify-center gap-2 p-4">
       <div className="relative group/icon">
-        <skill.Icon 
-          className="text-2xl md:text-3xl transition-all duration-700 group-hover:scale-110 opacity-30 group-hover:opacity-100"
-          style={{ 
+        <skill.Icon
+          className="text-2xl md:text-3xl transition-all duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-100"
+          style={{
             color: 'inherit' // Controlled by conditional logic or the style below
           }}
         />
         {/* Colorful Icon Overlay on hover */}
-        <skill.Icon 
+        <skill.Icon
           className="absolute inset-0 text-2xl md:text-3xl transition-all duration-700 scale-110 opacity-0 group-hover:opacity-100"
           style={{ color: skill.color }}
         />
         {/* Subtle drop shadow that appears on hover */}
-        <div 
+        <div
           className="absolute inset-0 blur-md opacity-0 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none"
           style={{ backgroundColor: skill.color }}
         />
       </div>
-      
-      <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-white/20 group-hover:text-[#A64D79] transition-colors duration-500">
+
+      <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-white/50 group-hover:text-[#A64D79] transition-colors duration-500">
         {skill.name}
       </span>
     </div>
@@ -136,7 +136,7 @@ const Skills = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            <h2 
+            <h2
               className="text-[10vw] md:text-[7vw] font-black uppercase tracking-[-0.04em] leading-none mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-[#A64D79]"
               style={{ fontFamily: '"Outfit", sans-serif' }}
             >

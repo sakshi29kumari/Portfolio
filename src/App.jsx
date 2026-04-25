@@ -51,7 +51,6 @@ function App() {
           </div>
         </main>
 
-        <Navbar />
         <Footer />
       </div>
     </ThemeProvider>

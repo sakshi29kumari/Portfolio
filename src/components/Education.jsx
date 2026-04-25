@@ -65,7 +65,7 @@ const EducationEntry = ({ item, index, setVariant, mousePos }) => {
       className="relative cursor-none group"
     >
       {content(false)}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none select-none z-10"
         style={{
           clipPath: `circle(50px at ${relPos.x}px ${relPos.y}px)`,
@@ -101,8 +101,8 @@ const Education = () => {
   }, []);
 
   return (
-    <section 
-      id="education" 
+    <section
+      id="education"
       className="relative py-20 bg-[#050505] overflow-hidden cursor-none"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
@@ -120,52 +120,52 @@ const Education = () => {
         }}
         transition={{ type: "spring", stiffness: 400, damping: 28, mass: 0.5 }}
       />
-      
+
       <div className="max-w-[1400px] mx-auto px-8 md:px-16 lg:px-24">
-        
+
         {/* HEADER WITH FIXED ALIGNMENT */}
-        <div 
+        <div
           ref={headerRef}
           className="relative mb-4 md:mb-8 inline-block cursor-none"
           onMouseEnter={() => setCursorVariant('hover')}
           onMouseLeave={() => setCursorVariant('default')}
         >
-          <h2 
+          <h2
             className="text-[14vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap"
             style={{ fontFamily: '"Outfit", sans-serif' }}
           >
             {"Education".split("").map((char, i) => (
-               <motion.span
-                 key={i}
-                 initial={{ opacity: 0, y: 100, rotate: 10 }}
-                 whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-                 viewport={{ once: true }}
-                 transition={{ duration: 0.8, delay: i * 0.08, ease: [0.23, 1, 0.32, 1] }}
-                 className="inline-block"
-               >
-                 {char}
-               </motion.span>
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 100, rotate: 10 }}
+                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: i * 0.08, ease: [0.23, 1, 0.32, 1] }}
+                className="inline-block"
+              >
+                {char}
+              </motion.span>
             ))}
           </h2>
-          <h2 
+          <h2
             className="text-[14vw] font-black uppercase text-[#A64D79] leading-none tracking-tighter absolute inset-0 pointer-events-none whitespace-nowrap"
-            style={{ 
+            style={{
               fontFamily: '"Outfit", sans-serif',
               clipPath: `circle(50px at ${headerRelPos.x}px ${headerRelPos.y}px)`,
               WebkitClipPath: `circle(50px at ${headerRelPos.x}px ${headerRelPos.y}px)`,
             }}
           >
             {"Education".split("").map((char, i) => (char === " " ? "\u00A0" : char)).map((char, i) => (
-               <motion.span
-                 key={i}
-                 initial={{ opacity: 0, y: 100, rotate: 10 }}
-                 whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-                 viewport={{ once: true }}
-                 transition={{ duration: 0.8, delay: i * 0.08, ease: [0.23, 1, 0.32, 1] }}
-                 className="inline-block"
-               >
-                 {char}
-               </motion.span>
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 100, rotate: 10 }}
+                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: i * 0.08, ease: [0.23, 1, 0.32, 1] }}
+                className="inline-block"
+              >
+                {char}
+              </motion.span>
             ))}
           </h2>
         </div>
@@ -179,27 +179,27 @@ const Education = () => {
           className="max-w-4xl mb-10"
         >
           <p className="text-[11px] md:text-xs text-white/40 uppercase tracking-[0.2em] leading-relaxed font-bold">
-            Building a solid theoretical foundation in computer science and engineering, 
-            mastering core algorithms to complex system architectures while maintaining 
+            Building a solid theoretical foundation in computer science and engineering,
+            mastering core algorithms to complex system architectures while maintaining
             academic excellence across all major scientific disciplines.
           </p>
         </motion.div>
 
         {/* DOUBLE DIVIDER LINES */}
         <div className="relative mb-10 md:mb-14">
-          <motion.div 
-             initial={{ scaleX: 0 }}
-             whileInView={{ scaleX: 1 }}
-             viewport={{ once: true }}
-             transition={{ duration: 1.5, ease: [0.23, 1, 0.32, 1] }}
-             className="h-[4px] w-full bg-[#A64D79] origin-left"
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, ease: [0.23, 1, 0.32, 1] }}
+            className="h-[4px] w-full bg-[#A64D79] origin-left"
           />
-          <motion.div 
-             initial={{ scaleX: 0 }}
-             whileInView={{ scaleX: 1 }}
-             viewport={{ once: true }}
-             transition={{ duration: 1.5, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
-             className="h-[1px] w-full bg-white/10 origin-left mt-2.5"
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
+            className="h-[1px] w-full bg-white/10 origin-left mt-2.5"
           />
         </div>
 

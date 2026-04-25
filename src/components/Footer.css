@@ -2,7 +2,7 @@
   position: relative;
   padding: 60px 24px 0;
   background-color: #000;
-  background-image: 
+  background-image:
     radial-gradient(circle at 10% 10%, rgba(166, 77, 121, 0.1) 0%, transparent 40%),
     radial-gradient(circle at 90% 90%, rgba(109, 74, 255, 0.1) 0%, transparent 40%);
   overflow: hidden;
@@ -53,8 +53,8 @@
   font-family: 'Outfit', sans-serif;
   font-size: clamp(3.5rem, 9vw, 7rem);
   font-weight: 950;
-  line-height: 0.85;
-  letter-spacing: -0.05em;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
   color: transparent;
   -webkit-text-stroke: 2px rgba(255, 255, 255, 0.8);
   text-transform: uppercase;
@@ -213,4 +213,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .footer-section {
+    padding-bottom: 0;
+  }
+  
+  .decorative-strip {
+    margin-top: 40px;
+    height: 50px; /* Force a height on mobile */
+    gap: 0;
+  }
+  
+  .shape-item {
+    padding: 5px;
+  }
+  
+  .shape-svg-container svg {
+    width: 24px;
+    height: 24px;
+  }
 }

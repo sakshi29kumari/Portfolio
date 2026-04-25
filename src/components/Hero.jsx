@@ -34,11 +34,11 @@ const Hero = () => {
   };
 
   return (
-    <section 
+    <section
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
-      className="relative min-h-screen bg-[#1A1A1D] text-[#F3E5F5] overflow-hidden flex flex-col font-sans tracking-tight cursor-none"
+      className="relative min-h-[70vh] md:min-h-screen bg-[#1A1A1D] text-[#F3E5F5] overflow-hidden flex flex-col font-sans tracking-tight cursor-none"
     >
       {/* DYNAMIC CUSTOM CURSOR */}
       <motion.div
@@ -93,105 +93,109 @@ const Hero = () => {
       {/* Main */}
       <div className="flex-1 flex items-center justify-center relative z-10 px-6 md:px-12">
 
-          {/* TEXT GROUP CONTAINER */}
-          <div className="relative flex items-center justify-center">
-            
-            {/* SVG Filter for clean merged outline */}
-            <svg width="0" height="0" className="absolute pointer-events-none">
-              <filter id="merged-outline">
-                <feMorphology in="SourceAlpha" result="DILATED" operator="dilate" radius="3" />
-                <feFlood floodColor="#A64D79" />
-                <feComposite in2="DILATED" operator="in" result="OUTLINE" />
-                <feComposite in="OUTLINE" in2="SourceAlpha" operator="out" />
-              </filter>
-            </svg>
+        {/* TEXT GROUP CONTAINER */}
+        <div className="relative flex items-center justify-center">
 
-            {/* BACK TEXT (Solid Pink) */}
-            <h1 
-              className="absolute text-[20vw] md:text-[17vw] lg:text-[16vw] font-[950] tracking-normal uppercase text-[#A64D79] select-none flex whitespace-nowrap"
-              style={{ 
-                fontFamily: '"Outfit", "Inter", sans-serif',
-                lineHeight: '0.85',
-                letterSpacing: '-0.01em', // Increased gap
-                transform: 'scaleY(1.25)', // Stretches height by 35%
-                transformOrigin: 'bottom'
-              }}
-            >
-              {portfolioText.split('').map((letter, index) => (
-                <motion.span
-                  key={index}
-                  initial={{ opacity: 0 }}
-                  animate={index < visibleLetters ? { opacity: 1 } : { opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {letter}
-                </motion.span>
-              ))}
-            </h1>
+          {/* SVG Filter for clean merged outline */}
+          <svg width="0" height="0" className="absolute pointer-events-none">
+            <filter id="merged-outline">
+              <feMorphology in="SourceAlpha" result="DILATED" operator="dilate" radius="1.5" />
+              <feFlood floodColor="#A64D79" />
+              <feComposite in2="DILATED" operator="in" result="OUTLINE" />
+              <feComposite in="OUTLINE" in2="SourceAlpha" operator="out" />
+            </filter>
+          </svg>
 
-            {/* FRONT TEXT (Outline) */}
-            <h1
-              className="relative z-40 text-[20vw] md:text-[17vw] lg:text-[16vw] font-[950] uppercase select-none flex whitespace-nowrap"
-              style={{
-                color: 'black',
-                filter: 'url(#merged-outline)',
-                fontFamily: '"Outfit", "Inter", sans-serif',
-                lineHeight: '0.85',
-                letterSpacing: '-0.01em',
-                transform: 'scaleY(1.25)',
-                transformOrigin: 'bottom'
-              }}
-            >
-              {portfolioText.split('').map((letter, index) => (
-                <motion.span
-                  key={index}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={index < visibleLetters ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  {letter}
-                </motion.span>
-              ))}
-
-              {/* Cursor */}
-              <span
-                className="inline-block ml-2 self-center"
-                style={{
-                  width: '4px',
-                  height: '12vw',
-                  background: '#A64D79',
-                  opacity: showCursor ? 1 : 0,
-                  display: visibleLetters >= portfolioText.length ? 'none' : 'inline-block',
-                }}
-              />
-            </h1>
-          </div>
-
-          {/* STATIC IMAGE */}
-          <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] w-full max-w-[90vw] md:max-w-3xl lg:max-w-4xl aspect-square z-20 pointer-events-none"
+          {/* BACK TEXT (Solid Pink) */}
+          <h1
+            className="absolute text-[12vw] sm:text-[15vw] md:text-[14vw] lg:text-[13vw] font-[950] tracking-normal uppercase text-[#A64D79] select-none flex whitespace-nowrap"
+            style={{
+              fontFamily: '"Outfit", "Inter", sans-serif',
+              lineHeight: '0.85',
+              letterSpacing: '-0.01em', // Increased gap
+              transform: window.innerWidth > 768 ? 'scaleY(1.25)' : 'scaleY(1.0)', 
+              transformOrigin: 'bottom'
+            }}
           >
-            <img
-              src={meImage}
-              alt="Sakshi Kumari"
-              className="w-full h-full object-contain drop-shadow-[0_0_60px_rgba(166,77,121,0.12)]"
-            />
-          </div>
+            {portfolioText.split('').map((letter, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0 }}
+                animate={index < visibleLetters ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {letter}
+              </motion.span>
+            ))}
+          </h1>
 
+          {/* FRONT TEXT (Outline) */}
+          <h1
+            className="relative z-40 text-[12vw] sm:text-[15vw] md:text-[14vw] lg:text-[13vw] font-[950] uppercase select-none flex whitespace-nowrap"
+            style={{
+              color: 'black',
+              filter: 'url(#merged-outline)',
+              fontFamily: '"Outfit", "Inter", sans-serif',
+              lineHeight: '0.85',
+              letterSpacing: '-0.01em',
+              transform: window.innerWidth > 768 ? 'scaleY(1.25)' : 'scaleY(1.0)',
+              transformOrigin: 'bottom'
+            }}
+          >
+            {portfolioText.split('').map((letter, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0, y: 40 }}
+                animate={index < visibleLetters ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                transition={{ duration: 0.4 }}
+              >
+                {letter}
+              </motion.span>
+            ))}
+
+            {/* Cursor */}
+            <span
+              className="inline-block ml-2 self-center"
+              style={{
+                width: '4px',
+                height: '12vw',
+                background: '#A64D79',
+                opacity: showCursor ? 1 : 0,
+                display: visibleLetters >= portfolioText.length ? 'none' : 'inline-block',
+              }}
+            />
+          </h1>
         </div>
+
+        {/* STATIC IMAGE */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%] md:-translate-y-[45%] w-full max-w-[95vw] md:max-w-3xl lg:max-w-4xl aspect-square z-20 pointer-events-none"
+        >
+          <img
+            src={meImage}
+            alt="Sakshi Kumari"
+            className="w-full h-full object-contain drop-shadow-[0_0_60px_rgba(166,77,121,0.12)]"
+            style={{
+              WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
+              maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)'
+            }}
+          />
+        </div>
+
+      </div>
 
       {/* Bottom Left - Presented By */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2.2, duration: 0.8 }}
-        className="absolute left-6 md:left-12 bottom-8 md:bottom-12 z-50 flex flex-col gap-2"
+        className="absolute left-6 md:left-12 bottom-6 md:bottom-12 z-50 flex flex-col gap-1 md:gap-2"
       >
-        <div className="flex flex-col gap-1 items-start">
-          <p className="text-xl md:text-2xl lg:text-3xl font-[950] tracking-tight text-[#F3E5F5]/30 uppercase">
+        <div className="flex flex-col gap-0 md:gap-1 items-start">
+          <p className="text-sm md:text-2xl lg:text-3xl font-[950] tracking-tight text-[#F3E5F5]/30 uppercase">
             Presented by
           </p>
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-[900] tracking-tight text-[#F3E5F5]/90 uppercase">
+          <h2 className="text-base md:text-2xl lg:text-3xl font-[900] tracking-tight text-[#F3E5F5]/90 uppercase">
             Sakshi <span className="text-[#A64D79]">Kumari</span>
           </h2>
         </div>
@@ -201,52 +205,52 @@ const Hero = () => {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 2.4, duration: 0.8 }}
-        className="absolute right-6 md:right-12 bottom-8 md:bottom-12 z-50 flex flex-col items-end gap-6"
+        className="absolute right-6 md:right-12 bottom-6 md:bottom-12 z-50 flex flex-col items-end gap-3 md:gap-6"
       >
         <div className="flex flex-col gap-4 items-start">
           <a
             href="mailto:sakshi04292004@gmail.com"
             onMouseEnter={() => setCursorVariant('hover')}
             onMouseLeave={() => setCursorVariant('default')}
-            className="flex items-center gap-3 group transition-all"
+            className="flex items-center gap-2 md:gap-3 group transition-all"
           >
-            <div className="p-2 rounded-full bg-[#A64D79]/10 text-[#A64D79] group-hover:bg-[#A64D79] group-hover:text-white transition-all">
-              <Mail size={18} />
+            <div className="p-1.5 md:p-2 rounded-full bg-[#A64D79]/10 text-[#A64D79] group-hover:bg-[#A64D79] group-hover:text-white transition-all">
+              <Mail size={16} className="md:w-[18px] md:h-[18px]" />
             </div>
-            <span className="text-sm md:text-base font-medium tracking-wide text-[#F3E5F5]/60 group-hover:text-[#A64D79] transition-colors">
+            <span className="hidden sm:inline text-sm md:text-base font-medium tracking-wide text-[#F3E5F5]/60 group-hover:text-[#A64D79] transition-colors">
               sakshi04292004@gmail.com
             </span>
           </a>
 
           <a
-            href="https://linkedin.com/in/sakshi-kumari"
+            href="https://www.linkedin.com/in/sakshi-kumari04/"
             target="_blank"
             rel="noopener noreferrer"
             onMouseEnter={() => setCursorVariant('hover')}
             onMouseLeave={() => setCursorVariant('default')}
             className="flex items-center gap-3 group transition-all"
           >
-            <div className="p-2 rounded-full bg-[#A64D79]/10 text-[#A64D79] group-hover:bg-[#A64D79] group-hover:text-white transition-all">
-              <Linkedin size={18} />
+            <div className="p-1.5 md:p-2 rounded-full bg-[#A64D79]/10 text-[#A64D79] group-hover:bg-[#A64D79] group-hover:text-white transition-all">
+              <Linkedin size={16} className="md:w-[18px] md:h-[18px]" />
             </div>
-            <span className="text-sm md:text-base font-medium tracking-wide text-[#F3E5F5]/60 group-hover:text-[#A64D79] transition-colors">
-              in/sakshi-kumari
+            <span className="hidden sm:inline text-sm md:text-base font-medium tracking-wide text-[#F3E5F5]/60 group-hover:text-[#A64D79] transition-colors">
+              in/sakshi-kumari04
             </span>
           </a>
 
           <a
-            href="https://github.com/sakshi"
+            href="https://github.com/sakshi29kumari"
             target="_blank"
             rel="noopener noreferrer"
             onMouseEnter={() => setCursorVariant('hover')}
             onMouseLeave={() => setCursorVariant('default')}
             className="flex items-center gap-3 group transition-all"
           >
-            <div className="p-2 rounded-full bg-[#A64D79]/10 text-[#A64D79] group-hover:bg-[#A64D79] group-hover:text-white transition-all">
-              <Github size={18} />
+            <div className="p-1.5 md:p-2 rounded-full bg-[#A64D79]/10 text-[#A64D79] group-hover:bg-[#A64D79] group-hover:text-white transition-all">
+              <Github size={16} className="md:w-[18px] md:h-[18px]" />
             </div>
-            <span className="text-sm md:text-base font-medium tracking-wide text-[#F3E5F5]/60 group-hover:text-[#A64D79] transition-colors">
-              github.com/sakshi
+            <span className="hidden sm:inline text-sm md:text-base font-medium tracking-wide text-[#F3E5F5]/60 group-hover:text-[#A64D79] transition-colors">
+              github.com/sakshi29kumari
             </span>
           </a>
         </div>

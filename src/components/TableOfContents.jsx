@@ -70,38 +70,18 @@ const TableOfContents = () => {
     offset: ['start start', 'end start'],
   });
 
-  // Hides the global navbar when this section is active
-  React.useEffect(() => {
-    const navbar = document.querySelector('nav');
-    if (!navbar) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          navbar.style.opacity = '0';
-          navbar.style.pointerEvents = 'none';
-        } else {
-          navbar.style.opacity = '1';
-          navbar.style.pointerEvents = 'auto';
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
 
   const opacity = useTransform(scrollYProgress, [0.8, 1], [1, 0]);
   const scale = useTransform(scrollYProgress, [0.8, 1], [1, 0.95]);
-  
+
   // Parallax Values
   const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
   const imgScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.05]);
 
   return (
-    <div ref={ref} className="relative bg-[#050505] contact-noise" style={{ height: '180vh' }}>
-      
+    <div ref={ref} className="relative bg-[#050505] contact-noise" style={{ height: window.innerWidth > 768 ? '180vh' : '100vh' }}>
+
       {/* Background Atmosphere */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(166,77,121,0.08)_0%,transparent_70%)] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(142,58,141,0.05)_0%,transparent_50%)] pointer-events-none" />
@@ -128,15 +108,15 @@ const TableOfContents = () => {
           {/* Dark Gradient Overlays */}
           <div className="absolute inset-x-0 inset-y-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent pointer-events-none" />
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none" />
-          
+
           {/* Edge Blur Overlay */}
           <div className="absolute inset-0 backdrop-blur-[1px] pointer-events-none" />
         </motion.div>
 
         {/* ═══ RIGHT SIDE: Content Area ═══ */}
-        <div className="flex-1 h-full flex flex-col justify-center py-24 px-6 md:px-12 lg:pl-32 lg:pr-24 relative z-10">
+        <div className="flex-1 h-full flex flex-col justify-center py-12 md:py-24 px-4 md:px-12 lg:pl-32 lg:pr-24 relative z-10">
 
-          <div className="w-full max-w-6xl mx-auto py-72">
+          <div className="w-full max-w-6xl mx-auto py-12 md:py-72">
 
             {/* ── Header Section ── */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-20">
@@ -177,7 +157,7 @@ const TableOfContents = () => {
                 >
                   "TRANSCENDING TRADITIONAL <span className="text-[#A64D79]">INTERFACES</span> TO BUILD THE FUTURE OF INTERACTIVE DESIGN."
                   <br />
-                  <motion.span 
+                  <motion.span
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: 1, duration: 1 }}
@@ -190,7 +170,7 @@ const TableOfContents = () => {
             </div>
 
             {/* ── Bento Grid ── */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-32">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8 pb-0 md:pb-32">
               {tocItems.map((item, idx) => {
                 return (
                   <motion.a
@@ -204,18 +184,18 @@ const TableOfContents = () => {
                       delay: 0.2 + idx * 0.1,
                       ease: [0.16, 1, 0.3, 1],
                     }}
-                    whileHover={{ 
+                    whileHover={{
                       y: -10,
                       scale: 1.05,
                       transition: { duration: 0.4, ease: "easeOut" }
                     }}
-                    className="group relative flex flex-col p-8 rounded-[2rem] toc-card cursor-pointer h-[150px] justify-end overflow-hidden"
+                    className="group relative flex flex-col p-4 md:p-8 rounded-[1.2rem] md:rounded-[2rem] toc-card cursor-pointer h-[120px] md:h-[150px] justify-end overflow-hidden"
                     style={{ textDecoration: 'none' }}
                   >
                     {/* Background Index Number (Enhanced Visibility) */}
                     <div className="absolute top-4 right-10 pointer-events-none transition-all duration-700 group-hover:scale-110 group-hover:translate-x-2 group-hover:-translate-y-2">
                       <span
-                        className="text-8xl md:text-9xl font-black italic select-none opacity-10 group-hover:opacity-30 group-hover:text-[#A64D79] transition-all duration-700"
+                        className="text-6xl md:text-9xl font-black italic select-none opacity-10 group-hover:opacity-30 group-hover:text-[#A64D79] transition-all duration-700"
                         style={{
                           fontFamily: '"Outfit", sans-serif',
                           WebkitTextStroke: '1px rgba(255,255,255,0.1)',
@@ -228,7 +208,7 @@ const TableOfContents = () => {
 
                     <div className="relative z-10 w-full mb-4">
                       <h3
-                        className="text-xl md:text-2xl font-black tracking-widest uppercase transition-all duration-500 group-hover:text-white"
+                        className="text-base md:text-2xl font-black tracking-widest uppercase transition-all duration-500 group-hover:text-white"
                         style={{
                           fontFamily: '"Outfit", sans-serif',
                           color: 'rgba(255,255,255,0.8)',
@@ -237,10 +217,10 @@ const TableOfContents = () => {
                       >
                         {item.label}
                       </h3>
-                      
+
                       {/* Animated Bottom Line */}
                       <div className="toc-link-line mt-4 group-hover:shadow-[0_0_15px_rgba(166,77,121,0.5)]" />
-                      
+
                       {/* Subtle hover glow gradient */}
                       <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-[#A64D79]/0 group-hover:bg-[#A64D79]/10 rounded-full blur-3xl transition-all duration-700" />
                     </div>
@@ -251,21 +231,21 @@ const TableOfContents = () => {
 
           </div>
 
-          </div>
+        </div>
 
-          {/* Scroll Progress Indicator (Right Side) */}
-          <div className="absolute bottom-12 right-6 md:right-12 hidden md:flex flex-col items-center gap-6 h-40">
-            <div className="relative w-[1px] h-full bg-white/10 rounded-full overflow-hidden">
-              <motion.div 
-                style={{ height: '100%', scaleY: scrollYProgress, originY: 0 }}
-                className="w-full bg-gradient-to-b from-[#A64D79] to-[#8E3A8D] shadow-[0_0_10px_rgba(166,77,121,0.5)]"
-              />
-              {/* Moving Dot */}
-              <motion.div 
-                style={{ top: useTransform(scrollYProgress, [0, 1], ['0%', '100%']) }}
-                className="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white border-2 border-[#A64D79] shadow-[0_0_15px_rgba(166,77,121,0.8)] z-20"
-              />
-            </div>
+        {/* Scroll Progress Indicator (Right Side) */}
+        <div className="absolute bottom-12 right-6 md:right-12 hidden md:flex flex-col items-center gap-6 h-40">
+          <div className="relative w-[1px] h-full bg-white/10 rounded-full overflow-hidden">
+            <motion.div
+              style={{ height: '100%', scaleY: scrollYProgress, originY: 0 }}
+              className="w-full bg-gradient-to-b from-[#A64D79] to-[#8E3A8D] shadow-[0_0_10px_rgba(166,77,121,0.5)]"
+            />
+            {/* Moving Dot */}
+            <motion.div
+              style={{ top: useTransform(scrollYProgress, [0, 1], ['0%', '100%']) }}
+              className="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white border-2 border-[#A64D79] shadow-[0_0_15px_rgba(166,77,121,0.8)] z-20"
+            />
+          </div>
         </div>
 
       </motion.div>
