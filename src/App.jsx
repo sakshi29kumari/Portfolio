@@ -28,28 +28,12 @@ function App() {
         </div>
 
         <main>
-          <div id="about">
-            <About />
-          </div>
-
-          <div id="education">
-            <Education />
-          </div>
-
+          <About />
+          <Education />
           <Experience />
-
-
-          <div id="skills">
-            <Skills />
-          </div>
-
-          <div id="projects">
-            <Projects />
-          </div>
-
-          <div id="contact">
-            <Contact />
-          </div>
+          <Skills />
+          <Projects />
+          <Contact />
         </main>
 
         <Footer />

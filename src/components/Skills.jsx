@@ -77,7 +77,17 @@ const TechCard = ({ skill, index }) => (
     className="relative group w-20 h-20 md:w-28 md:h-28 m-2"
   >
     {/* Outer Glow System */}
-    <div className="absolute inset-0 bg-white/[0.08] backdrop-blur-xl rounded-2xl border border-white/10 transition-all duration-500 group-hover:bg-white/[0.12] group-hover:border-[#A64D79]/50 group-hover:shadow-[0_0_50px_rgba(166,77,121,0.2)]" />
+    <div className="absolute inset-0 bg-white/[0.04] backdrop-blur-xl rounded-2xl border border-white/5 transition-all duration-500 group-hover:bg-white/[0.08] group-hover:border-[#A64D79]/40 group-hover:shadow-[0_0_50px_rgba(166,77,121,0.1)]" />
+
+    {/* Card Noise Texture */}
+    <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay rounded-2xl" 
+         style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} 
+    />
+
+    {/* Glass Reflection Glint */}
+    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none overflow-hidden rounded-2xl">
+      <div className="absolute -inset-[100%] bg-gradient-to-tr from-transparent via-white/10 to-transparent -rotate-45 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+    </div>
 
     {/* Inner Bevel Highight */}
     <div className="absolute inset-[1px] rounded-[0.95rem] border border-white/10 opacity-40 pointer-events-none" />
@@ -126,7 +136,7 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="relative py-10 bg-[#050505] overflow-hidden min-h-[auto]">
+    <section id="skills" className="relative py-10 bg-[#0A0A0B] overflow-hidden min-h-[auto]">
       <BackgroundGrid />
 
       <div className="max-w-[1400px] mx-auto px-8 relative z-10 flex flex-col items-center mt-2">

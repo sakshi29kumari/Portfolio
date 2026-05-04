@@ -1,65 +1,59 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import React, { useRef, useEffect } from 'react';
 import { Calendar, Star, Zap } from 'lucide-react';
 
 const Experience = () => {
   const sectionRef = useRef(null);
   const cardRef = useRef(null);
-  const headerRef = useRef(null);
 
-  // Mouse spotlight values
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const [headerRelPos, setHeaderRelPos] = useState({ x: 0, y: 0 });
+  useEffect(() => {
+    const section = sectionRef.current;
+    const card = cardRef.current;
+    if (!section || !card) return;
 
-  const handleMouseMove = (e) => {
-    // Card spotlight
-    if (cardRef.current) {
-      const rect = cardRef.current.getBoundingClientRect();
-      mouseX.set(e.clientX - rect.left);
-      mouseY.set(e.clientY - rect.top);
-    }
-    // Header reveal spotlight
-    if (headerRef.current) {
-      const rect = headerRef.current.getBoundingClientRect();
-      setHeaderRelPos({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
+    let rafId;
+    const handleScroll = () => {
+      rafId = requestAnimationFrame(() => {
+        const rect = section.getBoundingClientRect();
+        const sectionHeight = section.offsetHeight;
+        const windowHeight = window.innerHeight;
+
+        // Progress: 0 (top of section at viewport top) → 1 (bottom of section at viewport bottom)
+        const scrolled = Math.max(0, -rect.top) / (sectionHeight - windowHeight);
+        const progress = Math.min(1, Math.max(0, scrolled));
+
+        // Scale from 0.3 → 1.0 during first 50% of scroll progress
+        const scaleProgress = Math.min(progress / 0.5, 1);
+        const scale = 0.3 + scaleProgress * 0.7;
+
+        card.style.transform = `scale(${scale})`;
       });
-    }
-  };
+    };
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"]
-  });
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
 
-  // Smooth springs for scroll reveal
-  const springConfig = { damping: 20, stiffness: 100 };
-  const opacity = useSpring(useTransform(scrollYProgress, [0, 0.2, 0.45], [0, 0, 1]), springConfig);
-  const scale = useSpring(useTransform(scrollYProgress, [0.2, 0.45], [0.95, 1]), springConfig);
-  const y = useSpring(useTransform(scrollYProgress, [0.2, 0.45], [50, 0]), springConfig);
-
-  const isCardVisible = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   return (
     <section
       ref={sectionRef}
-      onMouseMove={handleMouseMove}
-      className="relative h-[600vh] bg-[#020203] w-full z-10"
+      id="experience"
+      className="relative h-[200vh] bg-[#0A0A0B] w-full z-10"
     >
       {/* Dynamic Background Aura */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-violet-600/10 blur-[150px] rounded-full" />
       </div>
 
+      {/* Sticky container — pins content while scrolling through the 200vh section */}
       <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center gap-12 px-6 overflow-hidden z-50">
 
-        {/* MATCHING EDUCATION STYLE HEADING WITH GRADIENT & ENHANCED VISIBILITY */}
-        <div
-          ref={headerRef}
-          className="relative inline-block"
-        >
+        {/* Heading */}
+        <div className="relative inline-block">
           <h2
             className="text-[10vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap"
             style={{
@@ -67,66 +61,26 @@ const Experience = () => {
               WebkitTextStroke: "1px rgba(255,255,255,0.2)"
             }}
           >
-            {"Experience".split("").map((char, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 100, rotate: 10 }}
-                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: i * 0.08, ease: [0.23, 1, 0.32, 1] }}
-                className="inline-block"
-              >
-                {char}
-              </motion.span>
-            ))}
-          </h2>
-          <h2
-            className="text-[10vw] font-black uppercase leading-none tracking-tighter absolute inset-0 pointer-events-none whitespace-nowrap bg-gradient-to-r from-[#F0FF42] via-[#E2FF3B] to-[#F0FF42] bg-clip-text text-transparent"
-            style={{
-              fontFamily: '"Outfit", sans-serif',
-              clipPath: `circle(120px at ${headerRelPos.x}px ${headerRelPos.y}px)`,
-              WebkitClipPath: `circle(120px at ${headerRelPos.x}px ${headerRelPos.y}px)`,
-            }}
-          >
-            {"Experience".split("").map((char, i) => (char === " " ? "\u00A0" : char)).map((char, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 100, rotate: 10 }}
-                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: i * 0.08, ease: [0.23, 1, 0.32, 1] }}
-                className="inline-block"
-              >
-                {char}
-              </motion.span>
-            ))}
+            Experience
           </h2>
         </div>
 
-        {/* ENHANCED PREMIUM CARD */}
-        <motion.div
+        {/* CARD — starts at scale(0.3), grows to scale(1) via scroll */}
+        <div
           ref={cardRef}
-          style={{ opacity, scale, y, pointerEvents: useTransform(isCardVisible, (v) => v > 0.5 ? "auto" : "none") }}
-          className="relative z-[2147483647] w-full max-w-7xl bg-[#0A0A0F]/60 backdrop-blur-3xl border border-white/20 rounded-[4rem] shadow-[0_50px_200px_rgba(0,0,0,1)] overflow-hidden group transition-transform duration-500 hover:border-white/40"
+          style={{ transform: 'scale(0.3)', willChange: 'transform' }}
+          className="relative w-full max-w-7xl bg-[#0D0D0E]/80 backdrop-blur-3xl border border-white/10 rounded-[3rem] md:rounded-[4rem] shadow-[0_50px_200px_rgba(0,0,0,0.8)] overflow-hidden group hover:border-white/20 transition-[border-color] duration-500"
         >
-          {/* Animated Mouse Spotlight (Inside Card) */}
-          <motion.div
-            className="absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"
-            style={{
-              background: useTransform(
-                [mouseX, mouseY],
-                ([x, y]) => `radial-gradient(800px circle at ${x}px ${y}px, rgba(139, 92, 246, 0.15), transparent 40%)`
-              )
-            }}
+          {/* Card Noise Texture */}
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" 
+               style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} 
           />
-
-          {/* Glowing Border Animation */}
-          <div className="absolute inset-0 p-[2px] rounded-[4rem] overflow-hidden">
+          {/* Glowing Border */}
+          <div className="absolute inset-0 p-[2px] rounded-[4rem] overflow-hidden pointer-events-none">
             <div className="absolute inset-0 bg-gradient-to-br from-violet-500/30 via-transparent to-blue-500/30 opacity-50" />
           </div>
 
           <div className="relative z-20 p-8 md:p-12 flex flex-col gap-8">
-
             {/* Header with Glass Badges */}
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
               <div className="flex flex-col gap-3">
@@ -154,18 +108,15 @@ const Experience = () => {
 
             <div className="h-[1px] bg-gradient-to-r from-white/20 via-white/5 to-transparent w-full" />
 
-            {/* Detailed Vertical 3 Achievement Points */}
+            {/* Achievement Points */}
             <div className="flex flex-col gap-8 max-w-5xl">
               {[
                 "Spearheaded the end-to-end frontend architecture and development of the Virtual Instructor platform, delivering a robust and high-performance user interface from the ground up.",
                 "Developed and integrated a sophisticated 3D Book viewing experience, leveraging modern web technologies to provide an immersive and interactive reading environment for users.",
                 "Optimized the entire eBook ecosystem by implementing high-fidelity UI enhancements and consistency patterns, resulting in significantly improved platform usability."
               ].map((text, idx) => (
-                <motion.div
+                <div
                   key={idx}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.1, duration: 0.5 }}
                   className="flex gap-5 items-center group/item"
                 >
                   <div className="relative flex-shrink-0">
@@ -174,15 +125,14 @@ const Experience = () => {
                       <Star size={16} className="text-[#F0FF42] group-hover/item:text-black transition-colors fill-current" />
                     </div>
                   </div>
-                  <p className="text-white text-sm md:text-lg font-medium leading-relaxed opacity-70 group-hover/item:opacity-100 transition-opacity">
+                  <p className="text-white text-sm md:text-xl font-medium leading-relaxed opacity-50 group-hover/item:opacity-100 transition-opacity" style={{ letterSpacing: '-0.01em' }}>
                     {text}
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
-
           </div>
-        </motion.div>
+        </div>
 
       </div>
     </section>

@@ -59,7 +59,7 @@ const ProjectCard = ({ project, index, range, targetScale }) => {
   return (
     <div ref={container} className="h-screen flex items-center justify-center sticky top-0">
       <motion.div
-        className="relative h-[90vh] md:h-[85vh] w-full max-w-[1400px] rounded-[2rem] md:rounded-[3rem] bg-[#050505] border-2 border-white/20 shadow-2xl overflow-hidden flex flex-col p-6 md:p-12 group transition-all duration-700 hover:border-white"
+        className="relative h-[90vh] md:h-[85vh] w-full max-w-[1400px] rounded-[2rem] md:rounded-[3rem] bg-[#0D0D0E] border border-white/10 shadow-2xl overflow-hidden flex flex-col p-6 md:p-12 group transition-all duration-700 hover:border-white/40"
         style={{
           scale,
 
@@ -69,11 +69,16 @@ const ProjectCard = ({ project, index, range, targetScale }) => {
       >
         {/* Dynamic Project Glow Aura - Simplified */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-20 transition-opacity duration-1000"
+          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-10 transition-opacity duration-1000"
           style={{
             background: `radial-gradient(circle at 100% 0%, ${project.glow} 0%, transparent 60%), 
                         radial-gradient(circle at 0% 100%, ${project.glow} 0%, transparent 60%)`
           }}
+        />
+
+        {/* Card Noise Texture */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" 
+             style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} 
         />
 
         {/* Card Header */}
@@ -165,7 +170,7 @@ const ProjectCard = ({ project, index, range, targetScale }) => {
 
 const Projects = () => {
   return (
-    <section id="projects" className="relative bg-[#000] py-15 pb-15 overflow-visible">
+    <section id="projects" className="relative bg-[#0A0A0B] py-15 pb-15 overflow-visible">
       <div className="max-w-[1400px] mx-auto px-8 md:px-16 mb-12 relative z-10">
         <div className="relative inline-block">
           <h2 className="text-[12vw] font-black uppercase text-white tracking-tighter leading-none" style={{ fontFamily: '"Outfit", sans-serif' }}>

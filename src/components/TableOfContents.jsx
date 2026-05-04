@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import tocImage from '../assets/TOC.jpg';
+import useMediaQuery from '../hooks/useMediaQuery';
 
 const tocItems = [
   { num: '01', label: 'INTRODUCTION', href: '#about' },
@@ -60,6 +61,7 @@ const injectStyles = (() => {
 })();
 
 const TableOfContents = () => {
+  const isDesktop = useMediaQuery('(min-width: 768px)');
   const ref = useRef(null);
 
   // Inject styles on first render
@@ -70,27 +72,8 @@ const TableOfContents = () => {
     offset: ['start start', 'end start'],
   });
 
-  // Hides the global navbar when this section is active
-  React.useEffect(() => {
-    const navbar = document.querySelector('nav');
-    if (!navbar) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          navbar.style.opacity = '0';
-          navbar.style.pointerEvents = 'none';
-        } else {
-          navbar.style.opacity = '1';
-          navbar.style.pointerEvents = 'auto';
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
+  // Removed Navbar hiding logic to ensure consistent navigation accessibility
+  React.useEffect(() => {}, []);
 
 
 
@@ -102,7 +85,7 @@ const TableOfContents = () => {
   const imgScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.05]);
 
   return (
-    <div ref={ref} className="relative bg-[#050505] contact-noise" style={{ height: window.innerWidth > 768 ? '180vh' : '100vh' }}>
+    <div ref={ref} className="relative bg-[#0A0A0B] contact-noise" style={{ height: isDesktop ? '180vh' : '100vh' }}>
 
       {/* Background Atmosphere */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(166,77,121,0.08)_0%,transparent_70%)] pointer-events-none" />
@@ -129,7 +112,7 @@ const TableOfContents = () => {
           />
           {/* Dark Gradient Overlays */}
           <div className="absolute inset-x-0 inset-y-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent pointer-events-none" />
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0A0A0B] to-transparent pointer-events-none" />
 
           {/* Edge Blur Overlay */}
           <div className="absolute inset-0 backdrop-blur-[1px] pointer-events-none" />
@@ -206,14 +189,20 @@ const TableOfContents = () => {
                       delay: 0.2 + idx * 0.1,
                       ease: [0.16, 1, 0.3, 1],
                     }}
-                    whileHover={{
-                      y: -10,
-                      scale: 1.05,
-                      transition: { duration: 0.4, ease: "easeOut" }
-                    }}
-                    className="group relative flex flex-col p-4 md:p-8 rounded-[1.2rem] md:rounded-[2rem] toc-card cursor-pointer h-[120px] md:h-[150px] justify-end overflow-hidden"
+                    className="group relative flex flex-col p-4 md:p-8 rounded-[1.2rem] md:rounded-[1.5rem] toc-card cursor-pointer h-[120px] md:h-[150px] justify-end overflow-hidden"
                     style={{ textDecoration: 'none' }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const target = document.querySelector(item.href);
+                      if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
                   >
+                    {/* Card Noise Texture */}
+                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" 
+                         style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} 
+                    />
                     {/* Background Index Number (Enhanced Visibility) */}
                     <div className="absolute top-4 right-10 pointer-events-none transition-all duration-700 group-hover:scale-110 group-hover:translate-x-2 group-hover:-translate-y-2">
                       <span

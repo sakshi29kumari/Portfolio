@@ -1,28 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Linkedin, Github } from 'lucide-react';
+import useMediaQuery from '../hooks/useMediaQuery';
 import meImage from '../assets/me.png';
 
 const Hero = () => {
+  const isDesktop = useMediaQuery('(min-width: 768px)');
   const portfolioText = "PORTFOLIO";
-  const [visibleLetters, setVisibleLetters] = useState(0);
-  const [showCursor, setShowCursor] = useState(true);
 
-  useEffect(() => {
-    if (visibleLetters < portfolioText.length) {
-      const timeout = setTimeout(() => {
-        setVisibleLetters(prev => prev + 1);
-      }, 200);
-      return () => clearTimeout(timeout);
-    }
-  }, [visibleLetters]);
-
-  useEffect(() => {
-    const cursorInterval = setInterval(() => {
-      setShowCursor(prev => !prev);
-    }, 530);
-    return () => clearInterval(cursorInterval);
-  }, []);
+  // Mouse Parallax for Image
+  const [imgOffset, setImgOffset] = useState({ x: 0, y: 0 });
 
   // Custom Mouse Cursor Logic
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -31,6 +18,13 @@ const Hero = () => {
 
   const handleMouseMove = (e) => {
     setMousePos({ x: e.clientX, y: e.clientY });
+    
+    // Calculate subtle parallax for the image
+    if (isDesktop) {
+      const x = (e.clientX - window.innerWidth / 2) * 0.01;
+      const y = (e.clientY - window.innerHeight / 2) * 0.01;
+      setImgOffset({ x, y });
+    }
   };
 
   return (
@@ -38,7 +32,7 @@ const Hero = () => {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
-      className="relative min-h-[70vh] md:min-h-screen bg-[#1A1A1D] text-[#F3E5F5] overflow-hidden flex flex-col font-sans tracking-tight cursor-none"
+      className="relative min-h-[70vh] md:min-h-screen bg-[#0A0A0B] text-[#F3E5F5] overflow-hidden flex flex-col font-sans tracking-tight cursor-none"
     >
       {/* DYNAMIC CUSTOM CURSOR */}
       <motion.div
@@ -108,21 +102,22 @@ const Hero = () => {
 
           {/* BACK TEXT (Solid Pink) */}
           <h1
-            className="absolute text-[12vw] sm:text-[15vw] md:text-[14vw] lg:text-[13vw] font-[950] tracking-normal uppercase text-[#A64D79] select-none flex whitespace-nowrap"
+            className="absolute text-[12vw] sm:text-[15vw] md:text-[14vw] lg:text-[13vw] font-[950] tracking-normal uppercase text-[#A64D79] select-none flex whitespace-nowrap overflow-hidden"
             style={{
               fontFamily: '"Outfit", "Inter", sans-serif',
               lineHeight: '0.85',
-              letterSpacing: '-0.01em', // Increased gap
-              transform: window.innerWidth > 768 ? 'scaleY(1.25)' : 'scaleY(1.0)', 
+              letterSpacing: '-0.01em',
+              transform: isDesktop ? 'scaleY(1.25)' : 'scaleY(1.0)', 
               transformOrigin: 'bottom'
             }}
           >
             {portfolioText.split('').map((letter, index) => (
               <motion.span
                 key={index}
-                initial={{ opacity: 0 }}
-                animate={index < visibleLetters ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.2 }}
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1, delay: 0.5 + index * 0.05, ease: [0.23, 1, 0.32, 1] }}
+                className="inline-block"
               >
                 {letter}
               </motion.span>
@@ -131,55 +126,51 @@ const Hero = () => {
 
           {/* FRONT TEXT (Outline) */}
           <h1
-            className="relative z-40 text-[12vw] sm:text-[15vw] md:text-[14vw] lg:text-[13vw] font-[950] uppercase select-none flex whitespace-nowrap"
+            className="relative z-40 text-[12vw] sm:text-[15vw] md:text-[14vw] lg:text-[13vw] font-[950] uppercase select-none flex whitespace-nowrap overflow-hidden"
             style={{
               color: 'black',
               filter: 'url(#merged-outline)',
               fontFamily: '"Outfit", "Inter", sans-serif',
               lineHeight: '0.85',
               letterSpacing: '-0.01em',
-              transform: window.innerWidth > 768 ? 'scaleY(1.25)' : 'scaleY(1.0)',
+              transform: isDesktop ? 'scaleY(1.25)' : 'scaleY(1.0)',
               transformOrigin: 'bottom'
             }}
           >
             {portfolioText.split('').map((letter, index) => (
               <motion.span
                 key={index}
-                initial={{ opacity: 0, y: 40 }}
-                animate={index < visibleLetters ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-                transition={{ duration: 0.4 }}
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1, delay: 0.6 + index * 0.05, ease: [0.23, 1, 0.32, 1] }}
+                className="inline-block"
               >
                 {letter}
               </motion.span>
             ))}
-
-            {/* Cursor */}
-            <span
-              className="inline-block ml-2 self-center"
-              style={{
-                width: '4px',
-                height: '12vw',
-                background: '#A64D79',
-                opacity: showCursor ? 1 : 0,
-                display: visibleLetters >= portfolioText.length ? 'none' : 'inline-block',
-              }}
-            />
           </h1>
         </div>
 
         {/* STATIC IMAGE */}
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%] md:-translate-y-[45%] w-full max-w-[95vw] md:max-w-3xl lg:max-w-4xl aspect-square z-20 pointer-events-none"
-        >
-          <img
-            src={meImage}
-            alt="Sakshi Kumari"
-            className="w-full h-full object-contain drop-shadow-[0_0_60px_rgba(166,77,121,0.12)]"
-            style={{
-              WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
-              maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)'
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%] md:-translate-y-[45%] w-full max-w-[95vw] md:max-w-3xl lg:max-w-4xl aspect-square z-20 pointer-events-none">
+          <motion.div
+            animate={{ 
+              x: imgOffset.x, 
+              y: imgOffset.y 
             }}
-          />
+            transition={{ type: "spring", stiffness: 100, damping: 30 }}
+            className="w-full h-full"
+          >
+            <img
+              src={meImage}
+              alt="Sakshi Kumari"
+              className="w-full h-full object-contain drop-shadow-[0_0_60px_rgba(166,77,121,0.12)]"
+              style={{
+                WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
+                maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)'
+              }}
+            />
+          </motion.div>
         </div>
 
       </div>

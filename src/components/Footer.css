@@ -36,8 +36,18 @@
 @media (max-width: 1024px) {
   .footer-content-grid {
     grid-template-columns: 1fr;
-    padding: 40px;
+    padding: 40px 24px;
     gap: 60px;
+  }
+
+  .branding-zone {
+    margin-left: 0;
+  }
+
+  .links-zone,
+  .inquiries-zone {
+    justify-items: start;
+    align-items: flex-start;
   }
 }
 

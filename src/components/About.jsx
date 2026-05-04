@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Mail, MapPin, Github, Instagram } from 'lucide-react';
 import meImage from '../assets/me.png';
+import useMediaQuery from '../hooks/useMediaQuery';
 
 /* ── inject global styles once ── */
 const injectAboutStyles = (() => {
@@ -67,6 +68,7 @@ const injectAboutStyles = (() => {
 })();
 
 const About = () => {
+  const isDesktop = useMediaQuery('(min-width: 768px)');
   const sectionRef = React.useRef(null);
   const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = React.useState(false);
@@ -110,16 +112,16 @@ const About = () => {
       }}
       className="relative about-noise overflow-hidden cursor-none"
       style={{
-        minHeight: window.innerWidth > 768 ? '100vh' : 'auto',
-        background: 'linear-gradient(145deg, #0D0D0D 0%, #111118 40%, #130B10 100%)',
+        minHeight: isDesktop ? '100vh' : 'auto',
+        background: 'linear-gradient(145deg, #0A0A0B 0%, #0D0D12 40%, #0F080C 100%)',
       }}
     >
       {/* DIFFERENCE HIGHLIGHTER CURSOR */}
       <motion.div
         className="fixed top-0 left-0 rounded-full flex items-center justify-center pointer-events-none z-[9999]"
         animate={{
-          x: mousePos.x - (cursorVariant === 'hover' ? 65 : 6),
-          y: mousePos.y - (cursorVariant === 'hover' ? 65 : 6),
+          x: mousePos.x - (cursorVariant === 'hover' ? 45 : 15),
+          y: mousePos.y - (cursorVariant === 'hover' ? 45 : 15),
           width: cursorVariant === 'hover' ? 90 : 30,
           height: cursorVariant === 'hover' ? 90 : 30,
           opacity: isHovering ? 1 : 0,
@@ -127,7 +129,7 @@ const About = () => {
           mixBlendMode: 'difference',
           scale: isHovering ? 1 : 0
         }}
-        transition={{ type: "spring", stiffness: 450, damping: 30, mass: 0.2 }}
+        transition={{ type: "spring", stiffness: 250, damping: 25, mass: 0.5 }}
       />
       {/* ─── Background radial glows ─── */}
       <div
@@ -245,10 +247,11 @@ const About = () => {
             viewport={{ once: true }}
             style={{
               fontFamily: '"Inter", sans-serif',
-              fontSize: 'clamp(0.9rem, 1.5vw, 1.05rem)',
-              color: '#9A9A9A',
-              lineHeight: 1.95,
-              maxWidth: '480px',
+              fontSize: 'clamp(0.95rem, 1.6vw, 1.15rem)',
+              color: 'rgba(255,255,255,0.5)',
+              lineHeight: 1.8,
+              maxWidth: '520px',
+              letterSpacing: '-0.01em'
             }}
           >
             I am a final-year B.Tech student and a Full Stack Developer, focused on building responsive, clean, and visually appealing web applications. I create websites that not only look good but also provide a smooth and efficient user experience.

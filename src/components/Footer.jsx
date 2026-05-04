@@ -74,17 +74,33 @@ const Footer = () => {
            <div className="link-group">
               <h4 className="link-title">Navigation</h4>
               <ul className="link-list">
-                 {['Home', 'About', 'Projects', 'Skills', 'Contact'].map((item) => (
+                 {[
+                   { label: 'Home', href: '#hero' },
+                   { label: 'About', href: '#about' },
+                   { label: 'Projects', href: '#projects' },
+                   { label: 'Skills', href: '#skills' },
+                   { label: 'Contact', href: '#contact' },
+                 ].map((item) => (
                    <motion.li 
-                     key={item}
+                     key={item.label}
                      variants={{
                        hidden: { opacity: 0, x: 20 },
                        visible: { opacity: 1, x: 0 }
                      }}
                    >
-                     <a href={`#${item.toLowerCase()}`} className="footer-link">
+                     <a 
+                       href={item.href} 
+                       className="footer-link"
+                       onClick={(e) => {
+                         e.preventDefault();
+                         const target = document.querySelector(item.href);
+                         if (target) {
+                           target.scrollIntoView({ behavior: 'smooth' });
+                         }
+                       }}
+                     >
                        <ChevronRight size={18} />
-                       {item}
+                       {item.label}
                      </a>
                    </motion.li>
                  ))}
